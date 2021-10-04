@@ -1,4 +1,3 @@
-# ICCV-CDPATH2021-ID-8
 
 #  Improving Self-supervised Learning with Hardness-aware Dynamic Curriculum Learning: An Application to Digital Pathology
 #### by [Chetan L. Srinidhi](https://srinidhipy.github.io) and [Anne L. Martel](https://medbio.utoronto.ca/faculty/martel)
