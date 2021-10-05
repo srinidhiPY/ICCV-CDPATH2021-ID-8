@@ -47,7 +47,7 @@ The model training consists of **three** steps:
 ### 1. Self-supervised pretraining
 In this work, we build our approach on our previous work ["Self-Supervised driven Consistency Training for Annotation Efficient Histopathology Image Analysis](https://arxiv.org/abs/2102.03897). Please, refer to our previous [repository](https://github.com/srinidhiPY/SSL_CR_Histo) for pretraining details on whole-slide-images. We have included the pretrained model (cam_SSL_pretrained_model.pt) for Camelyon16, found in the "models" folder.
 
-### Fine-tuing of pretrained models on the target task using hardness-aware dynamic curriculum training
+### 2, 3. Fine-tuing of pretrained models on the target task using hardness-aware dynamic curriculum training
 1. Download the desired pretrained model from the models folder.
 2. Download the desired dataset; you can simply add any other dataset that you wish.
 3. For slide-level classification tasks, run the following command by the desired parameters. The arguments can be set in the corresponding files.
@@ -66,11 +66,43 @@ python ft_MHSIT_SSL_CL_II.py    // Curriculum-II fine-tuning on MHIST
 ## Testing
 The test performance is validated at **two** stages:
 
-1. **Self-Supervised pretraining followed by supervised fine-tuning**
-* From the file **"eval_BreastPathQ_SSL.py / eval_Kather_SSL.py "**, you can test the model by changing the flag in argument: '**--mode**' to '**evaluation**'.
+1. **Patch-level predictions**
+The patch-level predictions can be performed to generate tumor probability heat-maps on Camelon16 and MSKCC datasets. Note: MSKCC doesnt contains any training images and hence, we use this dataset an external validation set to test our method's perfromance on out-of-distribution data.
+```python
+prob_map_generation.py  // tumor probability heat-map on Camelon16, MSKCC    
+```
+2. **Random-forest-based slide-level classifier for the final slide-level predictions**
+The slide-level predictions can be performed using scripts inside the "**Slide_Level_Analysis**" folder.
+```python
+extract_feature_heatmap.py  // to extract geometrical features from the heatmap predictions of the previous stage   
+wsi_classification_cam.py  // Random-forest based slide-level classifier
+```
+## License
 
-2. **Consistency training**
-* From the file **"eval_BreastPathQ_SSL_CR.py / eval_Kather_SSL_CR.py"**, you can test the model by changing the flag in argument: '**--mode**' to '**evaluation**'.
+Our code is released under [MIT license](LICENSE).
 
-The prediction on Camelyon16 test set can be performed using "**test_Camelyon16.py**" file.
+### Citation
+
+If you find our work useful in your research or if you use parts of this code please consider citing our papers:
+```
+@article{srinidhi2021improving,
+  title={Improving Self-supervised Learning with Hardness-aware Dynamic Curriculum Learning: An Application to Digital Pathology},
+  author={Srinidhi, Chetan L and Martel, Anne L},
+  journal={arXiv preprint arXiv:2108.07183},
+  year={2021}
+}```
+```
+@article{srinidhi2021self,
+  title={Self-supervised driven consistency training for annotation efficient histopathology image analysis},
+  author={Srinidhi, Chetan L and Kim, Seung Wook and Chen, Fu-Der and Martel, Anne L},
+  journal={arXiv preprint arXiv:2102.03897},
+  year={2021}
+}
+```
+
+### Acknowledgements
+This work was funded by Canadian Cancer Society and Canadian Institutes of Health Research (CIHR). It was also enabled in part by support provided by Compute Canada (www.computecanada.ca).
+
+### Questions or Comments
+Please direct any questions or comments to me; I am happy to help in any way I can. You can email me directly at chetan.srinidhi@utoronto.ca.
 
