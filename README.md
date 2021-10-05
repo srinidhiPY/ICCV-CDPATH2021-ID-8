@@ -90,8 +90,7 @@ If you find our work useful in your research or if you use parts of this code pl
   author={Srinidhi, Chetan L and Martel, Anne L},
   journal={arXiv preprint arXiv:2108.07183},
   year={2021}
-}```
-```
+}
 @article{srinidhi2021self,
   title={Self-supervised driven consistency training for annotation efficient histopathology image analysis},
   author={Srinidhi, Chetan L and Kim, Seung Wook and Chen, Fu-Der and Martel, Anne L},
