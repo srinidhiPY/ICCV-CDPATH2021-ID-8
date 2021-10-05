@@ -45,28 +45,32 @@ The model training consists of **three** steps:
 3. ***Curriculum-II fine-tuning*** (`hard-to-very-hard`)
 
 ### 1. Self-supervised pretraining
-In this work, we build our approach on our previous work ["Self-Supervised driven Consistency Training for Annotation Efficient Histopathology Image Analysis](https://arxiv.org/abs/2102.03897). Please, refer to our previous [repository](https://github.com/srinidhiPY/SSL_CR_Histo) for pretraining details on whole-slide-images. We have included the pretrained model for Camelyon16, found in the "models" folder - cam_SSL_pretrained_model.pt.
+In this work, we build our approach on our previous work ["Self-Supervised driven Consistency Training for Annotation Efficient Histopathology Image Analysis](https://arxiv.org/abs/2102.03897). Please, refer to our previous [repository](https://github.com/srinidhiPY/SSL_CR_Histo) for pretraining details on whole-slide-images. We have included the pretrained model (cam_SSL_pretrained_model.pt) for Camelyon16, found in the "models" folder.
 
-### Fine-tuing of pretrained models on the target task using hardness-aware curriculum training
+### Fine-tuing of pretrained models on the target task using hardness-aware dynamic curriculum training
 1. Download the desired pretrained model from the models folder.
 2. Download the desired dataset; you can simply add any other dataset that you wish.
-3. For whole-slide image (WSI) slide-level classification tasks, run the following command by the desired parameters. For example, to finetune barlowtwins on ChestX-ray14, run:
-```bash
-python main_classification.py --data_set ChestXray14  \
---init barlowtwins \
---proxy_dir path/to/pre-trained-model \
---data_dir path/to/dataset \
---train_list dataset/Xray14_train_official.txt \
---val_list dataset/Xray14_val_official.txt \
---test_list dataset/Xray14_test_official.txt 
+3. For slide-level classification tasks, run the following command by the desired parameters. The arguments can be set in the corresponding files.
+```python
+python ft_Cam_SSL.py  // Supervised fine-tuning on Camelyon16    
+python ft_Cam_SSL_CL_I.py    // Curriculum-I fine-tuning on Camelyon16
+python ft_Cam_SSL_CL_II.py    // Curriculum-II fine-tuning on Camelyon16
 ```
-Or, to evaluate supervised ImageNet model on ChestX-ray14, run:
-```bash
-python main_classification.py --data_set ChestXray14  \
---init ImageNet \
---data_dir path/to/dataset \
---train_list dataset/Xray14_train_official.txt \
---val_list dataset/Xray14_val_official.txt \
---test_list dataset/Xray14_test_official.txt 
+4. For patch-level classification tasks, run the following command by the desired parameters. The arguments can be set in the corresponding files.
+```python
+python ft_MHSIT_SSL.py  // Supervised fine-tuning on MHIST    
+python ft_MHSIT_SSL_CL_I.py    // Curriculum-I fine-tuning on MHIST
+python ft_MHSIT_SSL_CL_II.py    // Curriculum-II fine-tuning on MHIST
 ```
+
+## Testing
+The test performance is validated at **two** stages:
+
+1. **Self-Supervised pretraining followed by supervised fine-tuning**
+* From the file **"eval_BreastPathQ_SSL.py / eval_Kather_SSL.py "**, you can test the model by changing the flag in argument: '**--mode**' to '**evaluation**'.
+
+2. **Consistency training**
+* From the file **"eval_BreastPathQ_SSL_CR.py / eval_Kather_SSL_CR.py"**, you can test the model by changing the flag in argument: '**--mode**' to '**evaluation**'.
+
+The prediction on Camelyon16 test set can be performed using "**test_Camelyon16.py**" file.
 
