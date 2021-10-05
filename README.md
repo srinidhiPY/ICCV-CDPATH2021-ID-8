@@ -34,11 +34,39 @@ Core implementation:
 
 ## Datasets
 * **Camelyon16**: to download the dataset, check this link :<br/>https://camelyon16.grand-challenge.org
+* **MSKCC**: to download the dataset, check this link :<br/>https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=52763339
 * **MHIST**: to download the dataset, check this link :<br/>https://bmirds.github.io/MHIST/
-* * **MSKCC**: to download the dataset, check this link :<br/>https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=52763339
+
 
 ## Training
-The model training consists of **three** stages:
-1. ***Task-agnostic self-supervised pretext task*** (i.e., the proposed ***`Resolution sequence prediction (RSP)`*** task)
-2. ***Task-specific supervised fine-tuning*** (`SSL`)
-3. ***Task-specific teacher-student consistency training*** (`SSL_CR`)
+The model training consists of **three** steps:
+1. ***Self-supervised pretraining*** (i.e., Our earlier proposed method ***`Resolution sequence prediction (RSP)`*** and Momentum Contrast (MoCo))
+2. ***Curriculum-I fine-tuning*** (`easy-to-hard`)
+3. ***Curriculum-II fine-tuning*** (`hard-to-very-hard`)
+
+### 1. Self-supervised pretraining
+In this work, we build our approach on our previous work ["Self-Supervised driven Consistency Training for Annotation Efficient Histopathology Image Analysis](https://arxiv.org/abs/2102.03897). Please, refer to our previous [repository](https://github.com/srinidhiPY/SSL_CR_Histo) for pretraining details on whole-slide-images. We have included the pretrained model for Camelyon16, found in the "models" folder - cam_SSL_pretrained_model.pt.
+
+### Fine-tuing of pretrained models on the target task using hardness-aware curriculum training
+1. Download the desired pretrained model from the models folder.
+2. Download the desired dataset; you can simply add any other dataset that you wish.
+3. For whole-slide image (WSI) slide-level classification tasks, run the following command by the desired parameters. For example, to finetune barlowtwins on ChestX-ray14, run:
+```bash
+python main_classification.py --data_set ChestXray14  \
+--init barlowtwins \
+--proxy_dir path/to/pre-trained-model \
+--data_dir path/to/dataset \
+--train_list dataset/Xray14_train_official.txt \
+--val_list dataset/Xray14_val_official.txt \
+--test_list dataset/Xray14_test_official.txt 
+```
+Or, to evaluate supervised ImageNet model on ChestX-ray14, run:
+```bash
+python main_classification.py --data_set ChestXray14  \
+--init ImageNet \
+--data_dir path/to/dataset \
+--train_list dataset/Xray14_train_official.txt \
+--val_list dataset/Xray14_val_official.txt \
+--test_list dataset/Xray14_test_official.txt 
+```
+
