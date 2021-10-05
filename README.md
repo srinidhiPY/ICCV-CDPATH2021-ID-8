@@ -32,3 +32,13 @@ Core implementation:
 * Matplotlib 3.2+
 * Scipy, Numpy (any version)
 
+## Datasets
+* **Camelyon16**: to download the dataset, check this link :<br/>https://camelyon16.grand-challenge.org
+* **MHIST**: to download the dataset, check this link :<br/>https://bmirds.github.io/MHIST/
+* * **MSKCC**: to download the dataset, check this link :<br/>https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=52763339
+
+## Training
+The model training consists of **three** stages:
+1. ***Task-agnostic self-supervised pretext task*** (i.e., the proposed ***`Resolution sequence prediction (RSP)`*** task)
+2. ***Task-specific supervised fine-tuning*** (`SSL`)
+3. ***Task-specific teacher-student consistency training*** (`SSL_CR`)
