@@ -47,8 +47,8 @@ The model training consists of **three** steps:
 ### 1. Self-supervised pretraining
 In this work, we build our approach on our previous work ["Self-Supervised driven Consistency Training for Annotation Efficient Histopathology Image Analysis](https://arxiv.org/abs/2102.03897). Please, refer to our previous [repository](https://github.com/srinidhiPY/SSL_CR_Histo) for pretraining details on whole-slide-images. We have included the pretrained model (cam_SSL_pretrained_model.pt) for Camelyon16, found in the "models" folder.
 
-### 2, 3. Fine-tuing of pretrained models on the target task using hardness-aware dynamic curriculum training
-1. Download the desired pretrained model from the models folder.
+### 2, 3. Fine-tuing of pretrained models on the target task using hardness-aware dynamic curriculum learning
+1. Download the self-supervised pretrained model from the models folder.
 2. Download the desired dataset; you can simply add any other dataset that you wish.
 3. For slide-level classification tasks, run the following command by the desired parameters. The arguments can be set in the corresponding files.
 ```python
@@ -56,6 +56,8 @@ python ft_Cam_SSL.py  // Supervised fine-tuning on Camelyon16
 python ft_Cam_SSL_CL_I.py    // Curriculum-I fine-tuning on Camelyon16
 python ft_Cam_SSL_CL_II.py    // Curriculum-II fine-tuning on Camelyon16
 ```
+We have included the fine-tuned models (cam_curriculum_I_finetuned_model.pt, cam_curriculum_II_finetuned_model.pt) for Camelyon16, found in the "models" folder. These models can be used to test the predictions on Camelyon16 and MSKCC test sets.
+
 4. For patch-level classification tasks, run the following command by the desired parameters. The arguments can be set in the corresponding files.
 ```python
 python ft_MHSIT_SSL.py  // Supervised fine-tuning on MHIST    
@@ -66,13 +68,14 @@ python ft_MHSIT_SSL_CL_II.py    // Curriculum-II fine-tuning on MHIST
 ## Testing
 The test performance is validated at **two** stages:
 
-1. **Patch-level predictions**
-The patch-level predictions can be performed to generate tumor probability heat-maps on Camelon16 and MSKCC datasets. Note: MSKCC doesnt contains any training images and hence, we use this dataset an external validation set to test our method's perfromance on out-of-distribution data.
+1. **Patch-level predictions:**
+The patch-level predictions can be performed to generate tumor probability heat-maps on Camelon16 and MSKCC datasets. Note: MSKCC doesn't contains any training images and hence, we use this dataset an external validation set to test our method's performance on out-of-distribution data.
 ```python
-prob_map_generation.py  // tumor probability heat-map on Camelon16, MSKCC    
+prob_map_generation.py  // tumor probability heat-map on Camelon16, MSKCC 
+eval_MHIST.py  // patch-wise predictions on MHIST 
 ```
-2. **Random-forest-based slide-level classifier for the final slide-level predictions**
-The slide-level predictions can be performed using scripts inside the "**Slide_Level_Analysis**" folder.
+2. **Random-forest-based slide-level classifier:**
+The final slide-level predictions can be performed using scripts inside the "**Slide_Level_Analysis**" folder.
 ```python
 extract_feature_heatmap.py  // to extract geometrical features from the heatmap predictions of the previous stage   
 wsi_classification_cam.py  // Random-forest based slide-level classifier
