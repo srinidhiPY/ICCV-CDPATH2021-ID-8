@@ -69,16 +69,16 @@ python ft_MHSIT_SSL_CL_II.py    // Curriculum-II fine-tuning on MHIST
 The test performance is validated at **two** stages:
 
 1. **Patch-level predictions:**
-The patch-level predictions can be performed to generate tumor probability heat-maps on Camelon16 and MSKCC datasets. Note: MSKCC doesn't contains any training images and hence, we use this dataset an external validation set to test our method's performance on out-of-distribution data.
+The patch-level predictions can be performed to generate tumor probability heat-maps on Camelon16 and MSKCC datasets. Note: MSKCC doesn't contain any training images and hence, we use this dataset as an external validation set to test our method's performance on out-of-distribution data.
 ```python
-prob_map_generation.py  // tumor probability heat-map on Camelon16, MSKCC 
+prob_map_generation.py  // tumor probability heat-map on Camelyon16, MSKCC 
 eval_MHIST.py  // patch-wise predictions on MHIST 
 ```
 2. **Random-forest-based slide-level classifier:**
 The final slide-level predictions can be performed using scripts inside the "**Slide_Level_Analysis**" folder.
 ```python
 extract_feature_heatmap.py  // to extract geometrical features from the heatmap predictions of the previous stage   
-wsi_classification_cam.py  // Random-forest based slide-level classifier
+wsi_classification.py  // Random-forest based slide-level classifier
 ```
 ## License
 
