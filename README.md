@@ -2,7 +2,7 @@
 #  Improving Self-Supervised Learning with Hardness-aware Dynamic Curriculum Learning: An Application to Digital Pathology
 #### by [Chetan L. Srinidhi](https://srinidhipy.github.io) and [Anne L. Martel](https://medbio.utoronto.ca/faculty/martel)
 
-* Official repository for [Improving Self-supervised Learning with Hardness-aware Dynamic Curriculum Learning: An Application to Digital Pathology](https://arxiv.org/abs/2108.07183). **ICCV, 2021, CDpath workshop**, October, 2021. [[Conference proceedings]](https://openaccess.thecvf.com/content/ICCV2021W/CDPath/html/Srinidhi_Improving_Self-Supervised_Learning_With_Hardness-Aware_Dynamic_Curriculum_Learning_An_Application_ICCVW_2021_paper.html) [[arXiv preprint]](https://arxiv.org/abs/2108.07183)
+* Official repository for [Improving Self-supervised Learning with Hardness-aware Dynamic Curriculum Learning: An Application to Digital Pathology](https://openaccess.thecvf.com/content/ICCV2021W/CDPath/html/Srinidhi_Improving_Self-Supervised_Learning_With_Hardness-Aware_Dynamic_Curriculum_Learning_An_Application_ICCVW_2021_paper.html). **ICCV, 2021, CDpath workshop**, October, 2021. [[Conference proceedings]](https://openaccess.thecvf.com/content/ICCV2021W/CDPath/html/Srinidhi_Improving_Self-Supervised_Learning_With_Hardness-Aware_Dynamic_Curriculum_Learning_An_Application_ICCVW_2021_paper.html) [[arXiv preprint]](https://arxiv.org/abs/2108.07183)
 
 * <a href="https://github.com/srinidhiPY/ICCV-CDPATH2021-ID-8/tree/main/models"><img src="https://img.shields.io/badge/PRETRAINED-MODELS-<GREEN>.svg"/></a>
 
